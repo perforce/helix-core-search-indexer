@@ -16,11 +16,11 @@
   "supported_locales": [ "en", "ja" ],
 
   "developer": {
-          "name": "Perforce Software Inc",
+          "name": "Perforce Software, Inc.",
           "url": "https://www.perforce.com/"
   },
   "homepage_url": "https://www.perforce.com/products/helix-p4search",
 
-  "license": "MIT",
-  "license_body": "Copyright 2020, Perforce Software"
+  "license": "BSD 2-Clause Simplified License",
+  "license_body": "Copyright 2020, Perforce Software, Inc."
 }
