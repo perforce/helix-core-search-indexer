@@ -1,0 +1,26 @@
+{
+  "manifest_version": 1,
+  "api_version": 20191,
+  "script_runtime": { "language": "Lua", "version": "5.3" },
+
+  "key": "A120B90A-5B08-4477-8DAF-BF37F0A49F48",
+  "name": "helix-core-search-indexer",
+  "namespace": "Perforce",
+  "version": "20.1",
+  "version_name": "20.1 beta",
+  "description": "This extension makes a curl request to helix-p4search index endpoint.",
+
+  "compatible_products": [ "p4d" ],
+
+  "default_locale": "en",
+  "supported_locales": [ "en", "ja" ],
+
+  "developer": {
+          "name": "Perforce Software Inc",
+          "url": "https://www.perforce.com/"
+  },
+  "homepage_url": "https://www.perforce.com/products/helix-p4search",
+
+  "license": "MIT",
+  "license_body": "Copyright 2020, Perforce Software"
+}
