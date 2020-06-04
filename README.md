@@ -43,7 +43,7 @@ This will create an extension skeleton named `helix-core-search-indexer.p4-exten
      	
 (4) Configure the extension's global settings and specify the `X-Auth-Token` and `ExtP4USER` values.
 
-    	p4 extension --configure Perforce::helix-core-search-indexer
+    p4 extension --configure Perforce::helix-core-search-indexer
     	
 Add the `X-Auth-Token` to the field `auth_token` in the `ExtConfig` at the end of `global-config.in` file (without altering spaces/tabs). 
     
