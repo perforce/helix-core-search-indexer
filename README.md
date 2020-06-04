@@ -60,7 +60,7 @@ Change the `ExtP4USER` to your extension user.
 
 (7) You must add a property for `P4.P4Search.URL` to the Helix Core Server specifying the 'p4search' URL.  For example:
 
-	p4 property -a -n P4.P4Search.URL -v http://p4search.mydomain.com:4567
+    p4 property -a -n P4.P4Search.URL -v http://p4search.mydomain.com:4567
   
 (The property is used by the `main.lua` script)
 
