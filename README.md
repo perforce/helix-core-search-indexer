@@ -31,7 +31,7 @@ You will need a valid `X-Auth-Token` defined in the 'p4search' configuration.
     
 (2) Create a skeleton of a Helix Server Extension with name `helix-core-search-indexer`. You need to be in the parent directory of `helix-core-search-indexer`.
 
-    git clone git@github.com:perforce/helix-core-search-indexer.git
+    git clone https://github.com/perforce/helix-core-search-indexer.git
     
     p4 extension --package helix-core-search-indexer
     
