@@ -45,10 +45,11 @@ This will create an extension skeleton named `helix-core-search-indexer.p4-exten
 
     p4 extension --configure Perforce::helix-core-search-indexer
     	
-Add the `X-Auth-Token` to the field `auth_token` in the `ExtConfig` at the end of `global-config.in` file (without altering spaces/tabs). 
+Add the `X-Auth-Token` and `P4Search index url` in the `ExtConfig` at the end of `global-config.in` file (without altering spaces/tabs). 
     
         ExtConfig:
         	auth_token:	00000000-0000-0000-0000-000000000000
+        	p4search_url: http://p4search.mydomain.com:4567/api/v1/index/change
 
 Change the `ExtP4USER` to your extension user.
 
@@ -57,12 +58,6 @@ Change the `ExtP4USER` to your extension user.
     p4 extension --configure Perforce::helix-core-search-indexer --name Perforce
 
 (6) For more information on Helix Server Extensions, please refer to the [Helix Core Extensions Developer Guide](https://www.perforce.com/manuals/extensions/Content/Extensions/Home-extensions.html) 
-
-(7) You must add a property for `P4.P4Search.URL` to the Helix Core Server specifying the 'p4search' URL.  For example:
-
-    p4 property -a -n P4.P4Search.URL -v http://p4search.mydomain.com:4567
-  
-(The property is used by the `main.lua` script)
 
 ## Useful commands
 
