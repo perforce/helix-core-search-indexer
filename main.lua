@@ -2,9 +2,9 @@ local curl = require "cURL.safe"
 
 local initDone = false
 local config = {}
- 
+
 -- Remove leading and trailing whitespace from a string.
- 
+
 function trim( s )
     return ( s:gsub( "^%s*(.-)%s*$", "%1" ) )
 end
@@ -32,12 +32,14 @@ function init()
         initDone = true
     end
 end
- 
-function get(url)
+
+function index(change)
     -- Uncomment for debugging
     -- print("Going to index: " .. url)
 
     local xAuthToken = config["auth_token"]
+    local p4searchUrl = config["p4search_url"]
+    local url = p4searchUrl .. "/" .. change
     headers = {
       "Accept: application/json",
       "X-Auth-Token: " .. xAuthToken
@@ -71,22 +73,8 @@ end
 function ChangeCommit()
     init()
     local change = Helix.Core.Server.GetVar("change")
-    local serverport = Helix.Core.Server.GetVar("serverport")
-    local serveruser = Helix.Core.Server.GetVar("user")
 
-    p4 = P4.P4:new()
-    p4.port = serverport
-    p4.user = serveruser
-
-    p4:connect()
-    local props = p4:run("property", "-l", "-nP4.P4Search.URL")
-    local u = props[1]["value"]
-
-    -- Uncomment for debugging
-    -- print( "P4.P4Search.URL: " .. u)
-    p4:disconnect()
-
-    local status = get(u .. "/api/v1/index/change/" .. change)
+    local status = index(change)
 
     Helix.Core.Server.SetClientMsg(status)
     return true
