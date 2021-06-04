@@ -21,6 +21,6 @@
   },
   "homepage_url": "https://www.perforce.com/products/helix-p4search",
 
-  "license": "BSD 2-Clause Simplified License",
-  "license_body": "Copyright 2020, Perforce Software, Inc."
+  "license": "BSD 3-Clause Simplified License",
+  "license_body": "Copyright 2021, Perforce Software, Inc."
 }
