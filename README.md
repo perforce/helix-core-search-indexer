@@ -41,7 +41,7 @@ This will create an extension skeleton named `helix-core-search-indexer.p4-exten
 
     p4 extension -y --allow-unsigned --install helix-core-search-indexer.p4-extension
 
-You can skip the --allow-unsigned option if your server allows unsigned extensions.
+You can skip the `--allow-unsigned` option if your server allows unsigned extensions.
      	
 (4) Configure the extension's global settings and specify the `X-Auth-Token` and `ExtP4USER` values.
 
