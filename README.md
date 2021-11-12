@@ -1,6 +1,8 @@
+![Support](https://img.shields.io/badge/Support-None-red.svg)
+
 # Helix Core Search Indexer
 
-This project demonstrates how to keep the Helix Core Search service up-to-date with the latest submitted changes.  It uses an example Helix Core Lua Extension and is inteneded to be customised to suit a specific Helix installation.
+This project demonstrates how to keep the Helix Core Search service up-to-date with the latest submitted changes.  It uses an example Helix Core Lua Extension and is intended to be customised to suit a specific Helix installation.
 
 
 ## Overview
@@ -8,7 +10,7 @@ This project demonstrates how to keep the Helix Core Search service up-to-date w
 The Lua Extension will need to be installed on the Helix Core Server and is invoked by commit events.
 This document describes the necessary steps to customize and install the extension to run on any Helix Core Server.
 
-Extensions are not currently supported on Helix Core on Windows. As an alternative to extensions, you can configure a trigger to index changes.
+Extensions are not currently supported on Helix Core on Windows. As an alternative to extensions, you can configure a trigger to index changes on Windows.
 
 Here's an example- [Indexer trigger on windows](#indexer-trigger-on-windows)    
 
@@ -26,9 +28,18 @@ Helix Server `super` access is required to create Server Side Extension.
 #### Credentials to access p4search
 You will need a valid `X-Auth-Token` defined in the 'p4search' configuration. 
 
-## Deployment
+## Documentation
 
-(1) Ensure that the Helix Core Server has an extensions depot. If not, create one using
+Please refer to [Helix Core Search Developer Guide](https://www.perforce.com/manuals/p4search/Content/P4Search/keep-index-up-to-date.html#Use_a_Perforce_Lua_extension) to use our officially signed extension.
+
+## Support
+
+This project is an example and provided as-is.  
+Perforce offers no support for issues (either via GitHub nor via Perforce's standard support process).  All pull requests will be ignored.
+
+## Build/Usage
+
+(1) Ensure that the Helix Core Server has an extension depot. If not, create one using
 
     p4 depot -t extension extensions
     
@@ -46,17 +57,7 @@ This will create an extension skeleton named `helix-core-search-indexer.p4-exten
 
 You can skip the `--allow-unsigned` option if your server allows unsigned extensions.
      	
-(4) Configure the extension's global settings and specify the `X-Auth-Token` and `ExtP4USER` values.
-
-    p4 extension --configure Perforce::helix-core-search-indexer
-    	
-Add the `X-Auth-Token` and `P4Search index url` in the `ExtConfig` at the end of `global-config.in` file (without altering spaces/tabs). 
-    
-        ExtConfig:
-        	auth_token:	00000000-0000-0000-0000-000000000000
-        	p4search_url: http://p4search.mydomain.com:1601/api/v1/index/change
-
-Change the `ExtP4USER` to your extension user.
+(4) Configure the extension's global settings and change the `ExtP4USER` to match your extension user (without altering spaces/tabs).
 
 (5) Configure the extension's instance settings.
 
@@ -64,23 +65,23 @@ Change the `ExtP4USER` to your extension user.
 
 (6) For more information on Helix Server Extensions, please refer to the [Helix Core Extensions Developer Guide](https://www.perforce.com/manuals/extensions/Content/Extensions/Home-extensions.html) 
 
-## Useful commands
+Here are some useful commands to work with extensions.
 
-List the extensions on a Helix Core Server.
+(1) List the extensions on a Helix Core Server.
 
     p4 extension --list --type=extensions
-        
-List the extension's configurations.
+
+(2) List the extension's configurations.
     
     p4 extension --list --type=configs
 
-Delete the extension's directory and extension from Helix Core Server.
+(3) Delete the extension's directory and extension from Helix Core Server.
 
     rm -f helix-core-search-indexer.p4-extension    
     p4 extension -y --delete Perforce::helix-core-search-indexer
 
 
-## Indexer trigger on Windows
+#### Indexer trigger on Windows
 
 (1) Create a trigger script and save it in Helix Core. Make sure you change the Uri from `http://p4search.mydomain.com:1601` as per your configuration.
 
@@ -106,5 +107,3 @@ Delete the extension's directory and extension from Helix Core Server.
 
 
 Done! Now, Helix Core Search Index end point will index every change that is submitted.
-
-    
