@@ -5,8 +5,8 @@ local config = {}
 
 -- Remove leading and trailing whitespace from a string.
 
-function trim( s )
-	return ( s:gsub( "^%s*(.-)%s*$", "%1" ) )
+function trim(s)
+	return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
 
 -- Read the configuration settings the first time.
@@ -36,23 +36,34 @@ function index(change, p4searchUrl, xAuthToken)
 	-- Uncomment for debugging
 	-- print("Going to index: " .. url)
 
-	local url = p4searchUrl .. "/" .. change
+	local url = p4searchUrl .. "/api/v1/index/change/" .. change
 	headers = {
 		"Accept: application/json",
 		"X-Auth-Token: " .. xAuthToken
 	}
-	local c = curl.easy{
-		url			= url,
+	local c = curl.easy {
+		url = url,
 		ssl_verifypeer = false,
 		ssl_verifyhost = false,
-		httpheader	 = headers
+		httpheader = headers
 	}
-	local ok, err = c:perform()
+	local response = c:perform()
+	local code = c:getinfo(curl.INFO_RESPONSE_CODE)
 	c:close()
-	if not ok then
+
+	-- Unreachable server
+	if not response
+	then
+		print("GET request returned error " .. tostring(code))
+		return "Unreachable server. Index url: " .. url
+	end
+
+	if code == 200 then
+		return "Index request sent. Index url: " .. url
+	else
 		return "Index request failed. Index url: " .. url
 	end
-	return "Index request sent. Index url: " .. url
+
 end
 
 function GlobalConfigFields()
@@ -75,7 +86,7 @@ function ChangeCommit()
 	local p4 = P4.P4:new()
 	p4:autoconnect()
 	if not p4:connect() then
-		Helix.Core.Server.ReportError( Helix.Core.P4API.Severity.E_FAILED, "Error connecting to server\n" )
+		Helix.Core.Server.ReportError(Helix.Core.P4API.Severity.E_FAILED, "Error connecting to server\n")
 		return false
 	end
 	local props = p4:run("property", "-l", "-nP4.P4Search.URL")
