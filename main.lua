@@ -32,6 +32,13 @@ function init()
 	end
 end
 
+-- Write a log message to the extension log, along with some user data.
+function log(msg)
+	local host = Helix.Core.Server.GetVar("clientip")
+	local user = Helix.Core.Server.GetVar("user")
+	Helix.Core.Server.log({ ["user"] = user, ["host"] = host, ["msg"] = msg })
+end
+
 function index(change, p4searchUrl, xAuthToken)
 	-- Uncomment for debugging
 	-- print("Going to index: " .. url)
@@ -54,14 +61,16 @@ function index(change, p4searchUrl, xAuthToken)
 	-- Unreachable server
 	if not response
 	then
-		print("GET request returned error " .. tostring(code))
-		return "Unreachable server. Index url: " .. url
+		log("Server unreachable. Index url: " .. url)
+		return ""
 	end
 
 	if code == 200 then
-		return "Index request sent. Index url: " .. url
+		log("Index request sent. Index url: " .. url)
+		return ""
 	else
-		return "Index request failed. Index url: " .. url
+		log("Index request failed. Status: " .. tostring(code) .. " Index url: " .. url) 
+		return ""
 	end
 
 end
